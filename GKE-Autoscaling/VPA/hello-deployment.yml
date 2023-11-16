@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-server
+  namespace: vpa
+spec:
+  selector:
+    matchLabels:
+      app: hello-server
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: hello-server
+    spec:
+      containers:
+      - name: hello-server
+        image: gcr.io/google-samples/hello-app:1.0
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 450m
