@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: hpa
+  name: hpa-traffic
+spec:
+  selector:
+    matchLabels:
+      app: hpa-traffic
+  replicas: 1
+  template:
+    metadata:
+      labels:
+         app: hpa-traffic
+    spec:
+      containers:
+      - name: hpa-traffic
+        image: k8s.gcr.io/hpa-example
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: hpa
+  name: hpa-traffic
+  labels:
+    app: hpa-traffic
+  annotations:
+    networking.gke.io/max-rate-per-endpoint: 10  
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: hpa-traffic
