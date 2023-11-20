@@ -1,0 +1,14 @@
+gcloud artifacts repositories create gke-scheduled-autoscaler \
+  --repository-format=docker --location=us-central1
+gcloud auth configure-docker us-central1-docker.pkg.dev
+gcloud artifacts repositories add-iam-policy-binding gke-scheduled-autoscaler \
+   --location=us-central1 --member=allUsers --role=roles/artifactregistry.reader
+
+docker build -t us-central1-docker.pkg.dev/$PROJECT_ID/gke-scheduled-autoscaler/custom-metric-exporter .
+docker push us-central1-docker.pkg.dev/$PROJECT_ID/gke-scheduled-autoscaler/custom-metric-exporter
+
+kubectl apply -f ./k8s/scheduled-autoscaler
+
+
+gcloud monitoring dashboards create \
+    --config-from-file=./monitoring/dashboard.yaml
