@@ -1,0 +1,20 @@
+{
+    "name": "cloudsql-postgres",
+    "description": "Node.js PostgreSQL sample for Cloud SQL.",
+    "version": "0.0.1",
+    "private": true,
+    "license": "Apache-2.0",
+    "author": "Hernan Aymard",
+    "engines": {
+      "node": ">=16.0.0"
+    },
+    "scripts": {
+      "start": "node ejemplo.js"
+    },
+    "dependencies": {
+      "@google-cloud/cloud-sql-connector": "^1.0.0",
+      "@google-cloud/secret-manager": "^5.0.0",
+      "express": "^4.16.2",
+      "pg": "^8.0.0"
+    }
+  }
