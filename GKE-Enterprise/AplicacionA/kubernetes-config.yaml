@@ -1,10 +1,4 @@
 ---
-apiVersion: networking.gke.io/v1
-kind: ManagedCertificate
-metadata:
- name: aplicacion-a-cert
- namespace: aplicacion-a  
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -39,7 +33,7 @@ metadata:
   annotations:
     cloud.google.com/neg: '{"ingress": true}'
   labels:
-    app: aplicacion-a 
+    app: aplicacion-a
 spec:
   type: ClusterIP
   ports:
@@ -54,7 +48,6 @@ spec:
       name: aplicacion-a-ingress
       namespace: aplicacion-a
       annotations:  
-          networking.gke.io/managed-certificates: aplicacion-a-cert
           kubernetes.io/ingress.class: "gce"
     spec:
       defaultBackend:

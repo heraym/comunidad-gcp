@@ -1,10 +1,4 @@
 ---
-apiVersion: networking.gke.io/v1
-kind: ManagedCertificate
-metadata:
- name: aplicacion-b-cert
- namespace: aplicacion-b
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -52,8 +46,8 @@ spec:
     kind: Ingress
     metadata:
       name: aplicacion-b-ingress
+      namespace: aplicacion-b
       annotations:  
-          networking.gke.io/managed-certificates: aplicacion-b-cert
           kubernetes.io/ingress.class: "gce"
     spec:
       defaultBackend:
