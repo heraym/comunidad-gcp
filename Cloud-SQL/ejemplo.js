@@ -4,13 +4,13 @@ const {Pool} = pg;
 
 const connector = new Connector();
 const clientOpts = await connector.getOptions({
-  instanceConnectionName: 'projectodemos:us-central1:demo',
+  instanceConnectionName: 'projectodemos:us-central1:demo-private',
   ipType: 'PRIVATE', 
 });
 const pool = new Pool({
   ...clientOpts,
   user: 'postgres',
-  password: 'Academia.0706',
+  password: 'academia',
   database: 'postgres',
   max: 5
 });
@@ -29,11 +29,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-
 const server = http.createServer(app);
 
 app.get('/', async function(req,res,next) {
-    
+
        const {rows} = await pool.query('SELECT NOW()');
        console.table(rows); // prints returned time value from server
        res.send("Hello World DB");
@@ -42,7 +41,6 @@ app.get('/', async function(req,res,next) {
 server.listen(port, hostname, () => {
     console.log('Server running at http://%s:%s/', hostname, port);
 });
-
 
 // await pool.end();
 //connector.close();

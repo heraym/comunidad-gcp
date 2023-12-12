@@ -1,0 +1,9 @@
+gcloud iam service-accounts add-iam-policy-binding \
+--role="roles/iam.workloadIdentityUser" \
+--member="serviceAccount:projectodemos.svc.id.goog[sql/demo-sql-sa]" \
+usuario-cloud-sql-sa@projectodemos.iam.gserviceaccount.com
+
+
+kubectl annotate serviceaccount \
+demo-sql-sa \
+iam.gke.io/gcp-service-account=usuario-cloud-sql-sa@projectodemos.iam.gserviceaccount.com -n sql
